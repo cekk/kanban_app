@@ -1,15 +1,22 @@
 import React from 'react';
-import Note from './Note.jsx';
+import Editable from './Editable.jsx';
+import Note from './Note';
+import LaneActions from '../actions/LaneActions';
 
-export default ({notes, onEdit, onDelete}) => {
+export default ({notes, onValueClick, onEdit, onDelete}) => {
   return (
     <ul className="notes">{notes.map(note =>
-      <li key={note.id} className="note">
-        <Note
-          clas
-          task={note.task}
+      <Note
+        id={note.id}
+        key={note.id}
+        className="note"
+        onMove={LaneActions.move}>
+        <Editable
+          editing={note.editing}
+          value={note.task}
           onEdit={onEdit.bind(null, note.id)}
+          onValueClick={onValueClick.bind(null, note.id)}
           onDelete={onDelete.bind(null, note.id)} />
-      </li>
+      </Note>
     )}</ul> );
 }
